@@ -1,0 +1,14 @@
+!.docker/mysql/data/.gitkeep
+.docker/mysql/data/*
+tmp
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+
+docs/docs.go
+
+# others
+.custom.env
