@@ -19,9 +19,9 @@ func (c *CreateCommentIn) convert(postID uint64) *model.Comment {
 	}
 }
 
-func (c *UpdateCommentIn) convert(postID uint64) *model.Comment {
+func (c *UpdateCommentIn) convert(commentID uint64) *model.Comment {
 	return &model.Comment{
-		PostID:  postID,
+		ID:      commentID,
 		Content: c.Content,
 	}
 }

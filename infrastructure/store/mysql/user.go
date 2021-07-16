@@ -19,7 +19,7 @@ func ProvideUserRepo(db *gorm.DB) *User {
 
 func (u *User) GetByUUID(ctx context.Context, uuid string) (*model.User, error) {
 	var user model.User
-	if err := u.db.WithContext(ctx).Model(model.User{}).Where("uuid = ?", uuid).Find(&user).Error; err != nil {
+	if err := u.db.WithContext(ctx).Model(model.User{}).Where("uuid = ?", uuid).First(&user).Error; err != nil {
 		return nil, apperr.New_(apperr.Database, apperr.OptCltMsg(err.Error()))
 	}
 	return &user, nil

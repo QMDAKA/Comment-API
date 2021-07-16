@@ -14,4 +14,6 @@ var HandlerSet = wire.NewSet(
 	// core
 	comment.NewCommentIndex,
 	comment.NewCommentCreate,
+	comment.NewCommentDelete,
+	comment.NewCommentUpdate,
 )

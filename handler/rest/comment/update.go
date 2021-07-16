@@ -21,7 +21,7 @@ func NewCommentUpdate(
 	commentService comment.CommentServicer,
 ) *Update {
 	return &Update{
-		Path:           "/post/:id/comments",
+		Path:           "/comments/:id",
 		Method:         http.MethodPatch,
 		commentService: commentService,
 	}
@@ -43,7 +43,7 @@ func (u *Update) API(router *gin.RouterGroup) {
 			})
 		}
 		commentIn := in.convert(id)
-		if err := u.commentService.Create(ctx, commentIn); err != nil {
+		if err := u.commentService.Update(ctx, commentIn); err != nil {
 			common.SetErrorResponse(ginCtx, err)
 		}
 		ginCtx.JSON(http.StatusOK, common.ID{ID: commentIn.ID})

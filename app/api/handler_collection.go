@@ -11,9 +11,13 @@ type HandlerCollection []handler.APIHandler
 func NewHandlerCollection(
 	commentIndex *comment.Index,
 	commentCreate *comment.Create,
+	commentDelete *comment.Delete,
+	commentUpdate *comment.Update,
 ) HandlerCollection {
 	return []handler.APIHandler{
 		commentIndex,
 		commentCreate,
+		commentDelete,
+		commentUpdate,
 	}
 }

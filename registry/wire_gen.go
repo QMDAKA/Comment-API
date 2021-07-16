@@ -25,7 +25,9 @@ func InitializeServer(db *gorm.DB) (api.Server, error) {
 	commentComment := comment.NewComment(mysqlComment, transaction, authAuth)
 	index := comment2.NewCommentIndex(commentComment)
 	create := comment2.NewCommentCreate(commentComment)
-	handlerCollection := api.NewHandlerCollection(index, create)
+	commentDelete := comment2.NewCommentDelete(commentComment)
+	update := comment2.NewCommentUpdate(commentComment)
+	handlerCollection := api.NewHandlerCollection(index, create, commentDelete, update)
 	middlewareAuth := middleware.ProvideAuth(authAuth)
 	server := api.NewServer(db, handlerCollection, middlewareAuth)
 	return server, nil

@@ -35,6 +35,8 @@ func (a *Auth) UserAuth(c *gin.Context) {
 	user, err := a.loginUser.GetUserByUUID(c.Request.Context(), uuid)
 	if err != nil {
 		common.SetErrorResponse(c, err)
+		c.Abort()
+		return
 	}
 	c.Set(common.LoggedInUser, user)
 	c.Next()

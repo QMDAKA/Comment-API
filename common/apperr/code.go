@@ -27,7 +27,7 @@ func (c Code) String() string {
 // エラーコードの分類のために使用される.
 const (
 	// 共通エラーコード
-	CodeCategoryCommon = "common_"
+	CodeCategoryCommon = ""
 )
 
 // 下記にエラーコードを定義します.
@@ -41,6 +41,7 @@ const (
 	NotFound Code = CodeCategoryCommon + "resource_not_found"
 	// 認証エラーを表現します.
 	Unauthorized Code = CodeCategoryCommon + "unauthorized"
+	Forbidden    Code = CodeCategoryCommon + "forbidden"
 	// 一般的なシステムエラー
 	Internal   Code = CodeCategoryCommon + "e000" // アプリケーションで発生したハンドリング不可能なエラー
 	Database   Code = CodeCategoryCommon + "e001" // データベースで発生したハンドリング不可能なエラー
@@ -70,6 +71,7 @@ var codeInfoMap = map[Code]CodeInfo{
 	Internal:     newCodeInfo(http.StatusInternalServerError),
 	Database:     newCodeInfo(http.StatusInternalServerError),
 	BadRequest:   newCodeInfo(http.StatusBadRequest),
+	Forbidden:    newCodeInfo(http.StatusForbidden),
 }
 
 // エラーコードに対する情報を取得する.
