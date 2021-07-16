@@ -31,3 +31,7 @@ func (i *Index) API(router *gin.RouterGroup) {
 func (i *Index) GetKey() string {
 	return i.Method + i.Path
 }
+
+func (i *Index) LoginRequire() bool {
+	return false
+}

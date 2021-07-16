@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/QMDAKA/comment-mock/handler"
+	"github.com/QMDAKA/comment-mock/middleware"
 )
 
 type Server struct {
@@ -16,16 +17,18 @@ type Server struct {
 	// handler集
 	handlers    HandlerCollection
 	handlersMap map[string]handler.APIHandler
+	auth        middleware.Auth
 }
 
 // NewServer .
-func NewServer(db *gorm.DB, handlers HandlerCollection) Server {
+func NewServer(db *gorm.DB, handlers HandlerCollection, auth middleware.Auth) Server {
 	router := gin.New()
 	s := Server{
-		db:       db,
-		router:   router,
+		db:          db,
+		router:      router,
 		handlersMap: make(map[string]handler.APIHandler),
-		handlers: handlers,
+		handlers:    handlers,
+		auth:        auth,
 	}
 	return s
 }
@@ -65,6 +68,9 @@ func (s *Server) RegisterRouter() *gin.Engine {
 
 	for _, handler := range s.handlersMap {
 		apiRouter := s.router.Group("")
+		if handler.LoginRequire() {
+			apiRouter.Use(s.auth.UserAuth)
+		}
 		handler.API(apiRouter)
 	}
 	return s.router
