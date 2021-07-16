@@ -11,6 +11,7 @@ import (
 
 func InitializeServer(db *gorm.DB) (api.Server, error) {
 	wire.Build(
+		RepositorySet,
 		ServiceSet,
 		HandlerSet,
 		api.NewServer,

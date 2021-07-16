@@ -4,6 +4,7 @@ package registry
 
 import (
 	"github.com/google/wire"
+
 	"github.com/QMDAKA/comment-mock/service/comment"
 )
 

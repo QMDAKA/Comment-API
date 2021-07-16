@@ -7,7 +7,8 @@ package registry
 
 import (
 	"github.com/QMDAKA/comment-mock/app/api"
-	comment2 "github.com/QMDAKA/comment-mock/handler/comment"
+	comment2 "github.com/QMDAKA/comment-mock/handler/rest/comment"
+	"github.com/QMDAKA/comment-mock/infrastructure/store/mysql"
 	"github.com/QMDAKA/comment-mock/service/comment"
 	"gorm.io/gorm"
 )
@@ -15,9 +16,11 @@ import (
 // Injectors from wire.go:
 
 func InitializeServer(db *gorm.DB) (api.Server, error) {
-	commentComment := comment.NewComment()
+	mysqlComment := mysql.ProvideCommentRepo(db)
+	commentComment := comment.NewComment(mysqlComment)
 	index := comment2.NewCommentIndex(commentComment)
-	handlerCollection := api.NewHandlerCollection(index)
+	create := comment2.NewCommentCreate(commentComment)
+	handlerCollection := api.NewHandlerCollection(index, create)
 	server := api.NewServer(db, handlerCollection)
 	return server, nil
 }
