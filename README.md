@@ -1,6 +1,5 @@
-# postprime-interviews
 
-## desgin-docs
+## design-docs
 
 [以下のフォルダーを確認お願いします](https://github.com/QMDAKA/comment-mock/tree/master/design-doc)
 流れのイメージがうまく表示しなければ、mermail-extensionで見てください。また、pdfもあるので、確認お願いします。
